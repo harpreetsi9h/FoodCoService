@@ -28,7 +28,7 @@ public class AddressController {
     }
 
     @GetMapping("/address/id={addressId}")
-    ResponseEntity<Address> getAddress(@PathVariable String addressId) {
+    public ResponseEntity<Address> getAddress(@PathVariable String addressId) {
         return ResponseEntity.ok(addressService.getAddress(addressId));
     }
 
@@ -36,5 +36,14 @@ public class AddressController {
     public ResponseEntity<String> removeAddress(@PathVariable String addressId) {
         addressService.removeAddress(addressId);
         return ResponseEntity.ok("Address Removed Successfully!");
+    }
+
+    @PutMapping("/address")
+    public ResponseEntity<String> updateAddress(@RequestBody Address address) {
+        boolean result = addressService.updateAddress(address);
+        if (result)
+            return ResponseEntity.ok("Address Updated Successfully!");
+        else
+            return ResponseEntity.status(404).body("Address Not Found!");
     }
 }

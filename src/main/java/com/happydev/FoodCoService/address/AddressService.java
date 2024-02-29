@@ -36,4 +36,17 @@ public class AddressService {
                 ).findFirst()
                 .orElse(null);
     }
+
+    public boolean updateAddress(Address address) {
+
+        final Boolean[] result = new Boolean[1];
+        repository.findById(address.getAddressId()).ifPresentOrElse(
+            entity -> {
+                repository.save(address);
+                result[0] = true;
+            },
+            () -> result[0] = false
+        );
+        return result[0];
+    }
 }
