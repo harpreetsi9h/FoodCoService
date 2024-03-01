@@ -37,4 +37,13 @@ public class RestaurantController {
         restaurantService.removeRestaurant(restId);
         return ResponseEntity.ok("Restaurant Removed Successfully!");
     }
+
+    @PutMapping("/restaurant")
+    public ResponseEntity<String> updateRestaurant(@RequestBody Restaurant restaurant) {
+        boolean result = restaurantService.updateRestaurant(restaurant);
+        if (result)
+            return ResponseEntity.ok("Restaurant Updated Successfully!");
+        else
+            return ResponseEntity.status(404).body("Restaurant Not Found!");
+    }
 }

@@ -37,6 +37,8 @@ public class RestaurantService {
         data -> RestaurantReponseModel.builder()
                 .restId(data.getRestId())
                 .name(data.getName())
+                .cuisine(data.getCuisine())
+                .rating(data.getRating())
                 .address(internalServices.getAddress(data.getAddressId()))
                 .closingTime(data.getClosingTime())
                 .openingTime(data.getOpeningTime())
@@ -60,6 +62,8 @@ public class RestaurantService {
         return new RestaurantReponseModel().builder()
                 .restId(data.getRestId())
                 .name(data.getName())
+                .cuisine(data.getCuisine())
+                .rating(data.getRating())
                 .address(internalServices.getAddress(data.getAddressId()))
                 .closingTime(data.getClosingTime())
                 .openingTime(data.getOpeningTime())
@@ -68,4 +72,15 @@ public class RestaurantService {
                 .build();
     }
 
+    public boolean updateRestaurant(Restaurant restaurant) {
+        boolean result;
+
+        if(repository.findById(restaurant.getRestId()).isPresent()) {
+            repository.save(restaurant);
+            result = true;
+        }
+        else result = false;
+
+        return result;
+    }
 }

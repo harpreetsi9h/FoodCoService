@@ -13,6 +13,8 @@ import lombok.NoArgsConstructor;
 public class RestaurantReponseModel {
     private String restId;
     private String name;
+    private String cuisine;
+    private Float rating;
     private Address address;
     private String openingTime;
     private String closingTime;
