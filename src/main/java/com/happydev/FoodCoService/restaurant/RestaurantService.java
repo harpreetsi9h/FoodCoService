@@ -1,5 +1,7 @@
 package com.happydev.FoodCoService.restaurant;
 
+import com.happydev.FoodCoService.exception.CustomMessageException;
+import com.happydev.FoodCoService.util.Constants;
 import com.happydev.FoodCoService.util.InternalServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,8 +28,10 @@ public class RestaurantService {
         return restId;
     }
 
-    public void removeRestaurant(String restId) {
-        repository.deleteById(restId);
+    public void removeRestaurant(String restId) throws CustomMessageException {
+        if (repository.findById(restId).isPresent())
+            repository.deleteById(restId);
+        else throw new CustomMessageException(Constants.RESTAURANT_NOT_FOUND_WITH_ID+restId);
     }
 
     public List<RestaurantReponseModel> getAllRestaurants() {
@@ -48,13 +52,13 @@ public class RestaurantService {
         ).collect(Collectors.toList());
     }
 
-    public RestaurantReponseModel getRestaurant(String restId) {
+    public RestaurantReponseModel getRestaurant(String restId) throws CustomMessageException {
         Restaurant data = repository.findAll().stream()
                 .filter(
                         restaurant -> restaurant.getRestId()
                                 .equals(restId)
                 ).findFirst()
-                .orElse(null);
+                .orElseThrow(()->new CustomMessageException(Constants.RESTAURANT_NOT_FOUND_WITH_ID+restId));
 
         if (data==null)
             return null;
@@ -72,15 +76,10 @@ public class RestaurantService {
                 .build();
     }
 
-    public boolean updateRestaurant(Restaurant restaurant) {
-        boolean result;
+    public void updateRestaurant(Restaurant restaurant) throws CustomMessageException {
 
-        if(repository.findById(restaurant.getRestId()).isPresent()) {
+        if(repository.findById(restaurant.getRestId()).isPresent())
             repository.save(restaurant);
-            result = true;
-        }
-        else result = false;
-
-        return result;
+        else throw new CustomMessageException(Constants.RESTAURANT_NOT_FOUND_WITH_ID+restaurant.getRestId());
     }
 }

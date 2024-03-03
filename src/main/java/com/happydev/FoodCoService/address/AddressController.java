@@ -1,6 +1,9 @@
 package com.happydev.FoodCoService.address;
 
+import com.happydev.FoodCoService.exception.CustomMessageException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -22,28 +25,25 @@ public class AddressController {
     }
 
     @PostMapping("/address")
-    public ResponseEntity<String> addAddress(@RequestBody Address address) {
+    public ResponseEntity<String> addAddress(@RequestBody @Valid Address address) {
         String addressId = addressService.saveAddress(address);
-        return ResponseEntity.ok(addressId);
+        return ResponseEntity.status(HttpStatus.CREATED).body(addressId);
     }
 
     @GetMapping("/address/id={addressId}")
-    public ResponseEntity<Address> getAddress(@PathVariable String addressId) {
+    public ResponseEntity<Address> getAddress(@PathVariable String addressId) throws CustomMessageException {
         return ResponseEntity.ok(addressService.getAddress(addressId));
     }
 
     @DeleteMapping("/address/id={addressId}")
-    public ResponseEntity<String> removeAddress(@PathVariable String addressId) {
+    public ResponseEntity<String> removeAddress(@PathVariable String addressId) throws CustomMessageException {
         addressService.removeAddress(addressId);
         return ResponseEntity.ok("Address Removed Successfully!");
     }
 
     @PutMapping("/address")
-    public ResponseEntity<String> updateAddress(@RequestBody Address address) {
-        boolean result = addressService.updateAddress(address);
-        if (result)
-            return ResponseEntity.ok("Address Updated Successfully!");
-        else
-            return ResponseEntity.status(404).body("Address Not Found!");
+    public ResponseEntity<String> updateAddress(@RequestBody Address address) throws CustomMessageException {
+        addressService.updateAddress(address);
+        return ResponseEntity.ok("Address Updated Successfully!");
     }
 }

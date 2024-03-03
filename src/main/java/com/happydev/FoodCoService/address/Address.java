@@ -2,6 +2,7 @@ package com.happydev.FoodCoService.address;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,10 +17,14 @@ public class Address {
 
     @Id
     private String addressId;
+    @NotBlank
     private String line1;
     private String line2;
+    @NotBlank
     private String city;
+    @NotBlank
     private String province;
+    @NotBlank
     private String postalCode;
 
 }

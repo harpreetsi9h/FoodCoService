@@ -1,5 +1,7 @@
 package com.happydev.FoodCoService.address;
 
+import com.happydev.FoodCoService.exception.CustomMessageException;
+import com.happydev.FoodCoService.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -24,29 +26,26 @@ public class AddressService {
         return address.getAddressId();
     }
 
-    public void removeAddress(String addressId) {
-        repository.deleteById(addressId);
+    public void removeAddress(String addressId) throws CustomMessageException {
+        if (repository.findById(addressId).isPresent())
+            repository.deleteById(addressId);
+        else throw new CustomMessageException(Constants.ADDRESS_NOT_FOUND_WITH_ID+addressId);
     }
 
-    public Address getAddress(String addressId) {
+    public Address getAddress(String addressId) throws CustomMessageException {
         return repository.findAll().stream()
                 .filter(
                         address -> address.getAddressId()
                                 .equals(addressId)
                 ).findFirst()
-                .orElse(null);
+                .orElseThrow(() -> new CustomMessageException(Constants.ADDRESS_NOT_FOUND_WITH_ID+addressId));
     }
 
-    public boolean updateAddress(Address address) {
+    public void updateAddress(Address address) throws CustomMessageException {
 
-        boolean result;
-
-        if (repository.findById(address.getAddressId()).isPresent()) {
+        if (repository.findById(address.getAddressId()).isPresent())
             repository.save(address);
-            result = true;
-        }
-        else result = false;
+        else throw new CustomMessageException(Constants.ADDRESS_NOT_FOUND_WITH_ID+address.getAddressId());
 
-        return result;
     }
 }
