@@ -1,6 +1,7 @@
 package com.happydev.FoodCoService.restaurant;
 
 import com.happydev.FoodCoService.exception.CustomMessageException;
+import com.happydev.FoodCoService.util.Constants;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping(Constants.URL_API)
 public class RestaurantController {
 
     private final RestaurantService restaurantService;
@@ -19,31 +20,29 @@ public class RestaurantController {
         this.restaurantService = restaurantService;
     }
 
-    @GetMapping("/restaurant")
+    @GetMapping(Constants.URL_RESTAURANT)
     public ResponseEntity<List<RestaurantReponseModel>> getAllRestaurants() {
         return ResponseEntity.ok(restaurantService.getAllRestaurants());
     }
 
-    @PostMapping("/restaurant")
+    @PostMapping(Constants.URL_RESTAURANT)
     public ResponseEntity<String> addRestaurant(@RequestBody @Valid Restaurant restaurant) {
         String restId = restaurantService.saveRestaurant(restaurant);
         return ResponseEntity.status(HttpStatus.CREATED).body(restId);
     }
 
-    @GetMapping("/restaurant/id={restId}")
+    @GetMapping(Constants.URL_RESTAURANT+"/{restId}")
     ResponseEntity<RestaurantReponseModel> getRestaurant(@PathVariable String restId) throws CustomMessageException {
         return ResponseEntity.ok(restaurantService.getRestaurant(restId));
     }
 
-    @DeleteMapping("/restaurant/id={restId}")
+    @DeleteMapping(Constants.URL_RESTAURANT+"/{restId}")
     public ResponseEntity<String> removeRestaurant(@PathVariable String restId) throws CustomMessageException {
-        restaurantService.removeRestaurant(restId);
-        return ResponseEntity.ok("Restaurant Removed Successfully!");
+        return ResponseEntity.ok(restaurantService.removeRestaurant(restId));
     }
 
-    @PutMapping("/restaurant")
+    @PutMapping(Constants.URL_RESTAURANT)
     public ResponseEntity<String> updateRestaurant(@RequestBody Restaurant restaurant) throws CustomMessageException {
-        restaurantService.updateRestaurant(restaurant);
-        return ResponseEntity.ok("Restaurant Updated Successfully!");
+        return ResponseEntity.ok(restaurantService.updateRestaurant(restaurant));
     }
 }

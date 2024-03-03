@@ -13,7 +13,7 @@ public class InternalServices {
 
     public Address getAddress(String addressId) {
 
-        String apiUrl = "http://localhost:8081/api/address/id="+addressId;
+        String apiUrl = Constants.URL_LOCAL_BASE+Constants.URL_API+Constants.URL_ADDRESS+"/"+addressId;
         return webClientBuilder.build()
                 .get().uri(apiUrl).retrieve().bodyToMono(Address.class).block();
     }

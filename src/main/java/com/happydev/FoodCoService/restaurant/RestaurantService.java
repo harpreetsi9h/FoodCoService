@@ -28,9 +28,11 @@ public class RestaurantService {
         return restId;
     }
 
-    public void removeRestaurant(String restId) throws CustomMessageException {
-        if (repository.findById(restId).isPresent())
+    public String removeRestaurant(String restId) throws CustomMessageException {
+        if (repository.findById(restId).isPresent()) {
             repository.deleteById(restId);
+            return Constants.RESTAURANT_REMOVED_SUCCESSFULLY;
+        }
         else throw new CustomMessageException(Constants.RESTAURANT_NOT_FOUND_WITH_ID+restId);
     }
 
@@ -53,15 +55,10 @@ public class RestaurantService {
     }
 
     public RestaurantReponseModel getRestaurant(String restId) throws CustomMessageException {
-        Restaurant data = repository.findAll().stream()
-                .filter(
-                        restaurant -> restaurant.getRestId()
-                                .equals(restId)
-                ).findFirst()
-                .orElseThrow(()->new CustomMessageException(Constants.RESTAURANT_NOT_FOUND_WITH_ID+restId));
+        if(repository.findById(restId).isEmpty())
+            throw new CustomMessageException(Constants.RESTAURANT_NOT_FOUND_WITH_ID+restId);
 
-        if (data==null)
-            return null;
+        Restaurant data = repository.findById(restId).get();
 
         return new RestaurantReponseModel().builder()
                 .restId(data.getRestId())
@@ -76,10 +73,12 @@ public class RestaurantService {
                 .build();
     }
 
-    public void updateRestaurant(Restaurant restaurant) throws CustomMessageException {
+    public String updateRestaurant(Restaurant restaurant) throws CustomMessageException {
 
-        if(repository.findById(restaurant.getRestId()).isPresent())
+        if(repository.findById(restaurant.getRestId()).isPresent()) {
             repository.save(restaurant);
+            return Constants.RESTAURANT_UPDATED_SUCCESSFULLY;
+        }
         else throw new CustomMessageException(Constants.RESTAURANT_NOT_FOUND_WITH_ID+restaurant.getRestId());
     }
 }

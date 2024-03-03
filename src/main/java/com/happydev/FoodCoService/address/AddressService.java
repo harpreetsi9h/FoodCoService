@@ -26,25 +26,27 @@ public class AddressService {
         return address.getAddressId();
     }
 
-    public void removeAddress(String addressId) throws CustomMessageException {
-        if (repository.findById(addressId).isPresent())
+    public String removeAddress(String addressId) throws CustomMessageException {
+        if (repository.findById(addressId).isPresent()) {
             repository.deleteById(addressId);
+            return Constants.ADDRESS_REMOVED_SUCCESSFULLY;
+        }
         else throw new CustomMessageException(Constants.ADDRESS_NOT_FOUND_WITH_ID+addressId);
+
     }
 
     public Address getAddress(String addressId) throws CustomMessageException {
-        return repository.findAll().stream()
-                .filter(
-                        address -> address.getAddressId()
-                                .equals(addressId)
-                ).findFirst()
-                .orElseThrow(() -> new CustomMessageException(Constants.ADDRESS_NOT_FOUND_WITH_ID+addressId));
+        if(repository.findById(addressId).isEmpty())
+            throw new CustomMessageException(Constants.ADDRESS_NOT_FOUND_WITH_ID+addressId);
+        return repository.findById(addressId).get();
     }
 
-    public void updateAddress(Address address) throws CustomMessageException {
+    public String updateAddress(Address address) throws CustomMessageException {
 
-        if (repository.findById(address.getAddressId()).isPresent())
+        if (repository.findById(address.getAddressId()).isPresent()) {
             repository.save(address);
+            return Constants.ADDRESS_UPDATED_SUCCESSFULLY;
+        }
         else throw new CustomMessageException(Constants.ADDRESS_NOT_FOUND_WITH_ID+address.getAddressId());
 
     }
