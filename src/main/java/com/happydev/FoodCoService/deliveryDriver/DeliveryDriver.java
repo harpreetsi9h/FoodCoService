@@ -1,7 +1,9 @@
-package com.happydev.FoodCoService.customer;
+package com.happydev.FoodCoService.deliveryDriver;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,10 +16,10 @@ import org.checkerframework.common.value.qual.MinLen;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Customer {
+public class DeliveryDriver {
 
     @Id
-    private String customerId;
+    private String driverId;
     @NotBlank
     private String firstName;
     @NotBlank
@@ -29,4 +31,8 @@ public class Customer {
     @MinLen(10)
     private String phone;
     private String pic;
+    @DecimalMin("0.0")
+    @DecimalMax("5.0")
+    private Float rating;
+    private Integer numberOfDeliveries;
 }
