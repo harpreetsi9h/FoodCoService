@@ -9,11 +9,13 @@ public class Constants {
     public static final String URL_MENU_ITEM = "/menuItem";
     public static final String URL_CUSTOMER = "/customer";
     public static final String URL_DELIVERY_DRIVER = "/deliveryDriver";
+    public static final String URL_ORDER_MENU_ITEM = "/orderMenuItem";
     public static final String RESTAURANT_NOT_FOUND_WITH_ID = "Restaurant Not Found with ID = ";
     public static final String ADDRESS_NOT_FOUND_WITH_ID = "Address Not Found with ID = ";
     public static final String CUSTOMER_NOT_FOUND_WITH_ID = "Customer Not Found with ID = ";
     public static final String DRIVER_NOT_FOUND_WITH_ID = "Driver Not Found with ID = ";
     public static final String MENU_ITEM_NOT_FOUND_WITH_ID = "Menu Item Not Found with ID = ";
+    public static final String ORDER_MENU_ITEM_NOT_FOUND_WITH_ID = "Order Menu Item Not Found with ID = ";
 
     public static final String ADDRESS_REMOVED_SUCCESSFULLY = "Address Removed Successfully!";
     public static final String ADDRESS_UPDATED_SUCCESSFULLY = "Address Updated Successfully!";
@@ -25,4 +27,6 @@ public class Constants {
     public static final String CUSTOMER_REMOVED_SUCCESSFULLY = "Customer Removed Successfully!";
     public static final String DELIVERY_DRIVER_UPDATED_SUCCESSFULLY = "Delivery Driver Updated Successfully!";
     public static final String DELIVERY_DRIVER_REMOVED_SUCCESSFULLY = "Delivery Driver Removed Successfully!";
+    public static final String ORDER_MENU_ITEM_UPDATED_SUCCESSFULLY = "Order Menu Item Updated Successfully!";
+    public static final String ORDER_MENU_ITEM_REMOVED_SUCCESSFULLY = "Order Menu Item Removed Successfully!";
 }
