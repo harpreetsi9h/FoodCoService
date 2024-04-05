@@ -4,6 +4,8 @@ import com.happydev.FoodCoService.exception.CustomMessageException;
 import com.happydev.FoodCoService.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,8 +22,10 @@ public class AddressService {
         return repository.findAll();
     }
 
-    public String saveAddress(Address address) {
+    public String createAddress(Address address) {
         address.setAddressId(UUID.randomUUID().toString());
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        address.setCreatedAt(timestamp.toString());
         repository.save(address);
         return address.getAddressId();
     }

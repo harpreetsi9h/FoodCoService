@@ -35,4 +35,5 @@ public class DeliveryDriver {
     @DecimalMax("5.0")
     private Float rating;
     private Integer numberOfDeliveries;
+    private String createdAt;
 }

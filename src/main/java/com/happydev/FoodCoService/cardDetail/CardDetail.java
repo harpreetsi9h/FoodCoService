@@ -1,8 +1,8 @@
-package com.happydev.FoodCoService.address;
+package com.happydev.FoodCoService.cardDetail;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,19 +13,17 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Address {
+public class CardDetail {
 
     @Id
-    private String addressId;
+    private String cardDetailId;
     @NotBlank
-    private String line1;
-    private String line2;
+    private String cardNumber;
     @NotBlank
-    private String city;
+    private String untilMonth;
     @NotBlank
-    private String province;
+    private String untilYear;
     @NotBlank
-    private String postalCode;
+    private String cardCvv;
     private String createdAt;
-
 }

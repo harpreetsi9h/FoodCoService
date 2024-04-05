@@ -4,6 +4,8 @@ import com.happydev.FoodCoService.exception.CustomMessageException;
 import com.happydev.FoodCoService.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,8 +23,10 @@ public class DeliveryDriverService {
         return repository.findAll();
     }
 
-    public String saveDeliveryDriver(DeliveryDriver deliveryDriver) {
+    public String createDeliveryDriver(DeliveryDriver deliveryDriver) {
         deliveryDriver.setDriverId(UUID.randomUUID().toString());
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        deliveryDriver.setCreatedAt(timestamp.toString());
         repository.save(deliveryDriver);
         return deliveryDriver.getDriverId();
     }

@@ -5,6 +5,7 @@ import com.happydev.FoodCoService.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,8 +23,10 @@ public class MenuItemService {
         return repository.findAll();
     }
 
-    public String saveMenuItem(MenuItem menuItem) {
+    public String createMenuItem(MenuItem menuItem) {
         menuItem.setMenuItemId(UUID.randomUUID().toString());
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        menuItem.setCreatedAt(timestamp.toString());
         repository.save(menuItem);
         return menuItem.getMenuItemId();
     }

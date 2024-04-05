@@ -5,6 +5,8 @@ import com.happydev.FoodCoService.util.Constants;
 import com.happydev.FoodCoService.util.InternalServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -21,9 +23,11 @@ public class RestaurantService {
         this.internalServices = internalServices;
     }
 
-    public String saveRestaurant(Restaurant restaurant) {
+    public String createRestaurant(Restaurant restaurant) {
         String restId = UUID.randomUUID().toString();
         restaurant.setRestId(restId);
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        restaurant.setCreatedAt(timestamp.toString());
         repository.save(restaurant);
         return restId;
     }
@@ -50,6 +54,7 @@ public class RestaurantService {
                 .openingTime(data.getOpeningTime())
                 .coverPic(data.getCoverPic())
                 .logoPic(data.getLogoPic())
+                .createdAt(data.getCreatedAt())
                 .build()
         ).collect(Collectors.toList());
     }
@@ -70,6 +75,7 @@ public class RestaurantService {
                 .openingTime(data.getOpeningTime())
                 .coverPic(data.getCoverPic())
                 .logoPic(data.getLogoPic())
+                .createdAt(data.getCreatedAt())
                 .build();
     }
 

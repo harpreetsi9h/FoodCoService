@@ -27,8 +27,8 @@ public class MenuItemController {
     }
 
     @PostMapping(Constants.URL_MENU_ITEM)
-    public ResponseEntity<String> addMenuItem(@RequestBody @Valid MenuItem menuItem) {
-        String menuItemId = itemService.saveMenuItem(menuItem);
+    public ResponseEntity<String> createMenuItem(@RequestBody @Valid MenuItem menuItem) {
+        String menuItemId = itemService.createMenuItem(menuItem);
         return ResponseEntity.status(HttpStatus.CREATED).body(menuItemId);
     }
 

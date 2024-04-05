@@ -26,8 +26,8 @@ public class RestaurantController {
     }
 
     @PostMapping(Constants.URL_RESTAURANT)
-    public ResponseEntity<String> addRestaurant(@RequestBody @Valid Restaurant restaurant) {
-        String restId = restaurantService.saveRestaurant(restaurant);
+    public ResponseEntity<String> createRestaurant(@RequestBody @Valid Restaurant restaurant) {
+        String restId = restaurantService.createRestaurant(restaurant);
         return ResponseEntity.status(HttpStatus.CREATED).body(restId);
     }
 

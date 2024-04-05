@@ -26,8 +26,8 @@ public class DeliveryDriverController {
     }
 
     @PostMapping(Constants.URL_DELIVERY_DRIVER)
-    public ResponseEntity<String> addDeliveryDriver(@RequestBody @Valid DeliveryDriver driver) {
-        String driverId = service.saveDeliveryDriver(driver);
+    public ResponseEntity<String> createDeliveryDriver(@RequestBody @Valid DeliveryDriver driver) {
+        String driverId = service.createDeliveryDriver(driver);
         return ResponseEntity.status(HttpStatus.CREATED).body(driverId);
     }
 

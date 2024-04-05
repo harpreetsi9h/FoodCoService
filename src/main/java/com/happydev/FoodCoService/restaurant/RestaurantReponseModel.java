@@ -20,4 +20,5 @@ public class RestaurantReponseModel {
     private String closingTime;
     private String logoPic;
     private String coverPic;
+    private String createdAt;
 }

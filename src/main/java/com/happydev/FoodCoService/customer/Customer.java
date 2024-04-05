@@ -28,5 +28,7 @@ public class Customer {
     private String email;
     @MinLen(10)
     private String phone;
+    private String cardDetailId;
     private String pic;
+    private String createdAt;
 }

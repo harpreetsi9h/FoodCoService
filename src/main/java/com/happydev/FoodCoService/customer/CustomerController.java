@@ -27,8 +27,8 @@ public class CustomerController {
     }
 
     @PostMapping(Constants.URL_CUSTOMER)
-    public ResponseEntity<String> addCustomer(@RequestBody @Valid Customer customer) {
-        String customerId = service.saveCustomer(customer);
+    public ResponseEntity<String> createCustomer(@RequestBody @Valid Customer customer) {
+        String customerId = service.createCustomer(customer);
         return ResponseEntity.status(HttpStatus.CREATED).body(customerId);
     }
 

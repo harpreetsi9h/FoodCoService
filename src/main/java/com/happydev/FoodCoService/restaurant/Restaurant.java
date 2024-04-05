@@ -32,4 +32,5 @@ public class Restaurant {
     private String closingTime;
     private String logoPic;
     private String coverPic;
+    private String createdAt;
 }

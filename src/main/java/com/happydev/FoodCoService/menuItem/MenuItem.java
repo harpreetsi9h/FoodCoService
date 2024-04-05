@@ -28,5 +28,5 @@ public class MenuItem {
     private float price;
     private String itemPic;
     private String desc;
-
+    private String createdAt;
 }

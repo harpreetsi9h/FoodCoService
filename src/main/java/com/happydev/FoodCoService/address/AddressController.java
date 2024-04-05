@@ -26,8 +26,8 @@ public class AddressController {
     }
 
     @PostMapping(Constants.URL_ADDRESS)
-    public ResponseEntity<String> addAddress(@RequestBody @Valid Address address) {
-        String addressId = addressService.saveAddress(address);
+    public ResponseEntity<String> createAddress(@RequestBody @Valid Address address) {
+        String addressId = addressService.createAddress(address);
         return ResponseEntity.status(HttpStatus.CREATED).body(addressId);
     }
 
