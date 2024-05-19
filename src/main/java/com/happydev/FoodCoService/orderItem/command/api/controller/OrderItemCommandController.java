@@ -25,7 +25,7 @@ public class OrderItemCommandController {
     }
 
     @PostMapping(Constants.URL_ORDER_ITEM)
-    public ResponseEntity<String> addOrderItem(@RequestBody @Valid OrderItemModel orderItem) {
+    public ResponseEntity<String> createOrderItem(@RequestBody @Valid OrderItemModel orderItem) {
         CreateOrderItemCommand createOrderItemCommand = CreateOrderItemCommand.builder()
                 .orderItemId(UUID.randomUUID().toString())
                 .menuItemId(orderItem.getMenuItemId())

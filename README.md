@@ -28,6 +28,10 @@ Download & Go to the Axon Server directory like
 ```
 cd AxonServer-2023.1.1
 ```
+for example (with path)
+```
+cd C:\Users\user\Softwares\AxonServer-2023.2.2
+```
 and then run this command to start the server
 
 ```
